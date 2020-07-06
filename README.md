@@ -2,7 +2,7 @@
 
 **InstagramClone** is a photo sharing app using Parse as its backend.
 
-Time spent: **2** hours spent in total
+Time spent: **4** hours spent in total
 
 ## User Stories
 
