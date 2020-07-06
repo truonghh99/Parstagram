@@ -2,6 +2,9 @@ package com.example.parstagram;
 
 import android.content.Context;
 import android.media.Image;
+import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.parstagram.fragments.DetailFragment;
 import com.parse.ParseFile;
 
+import java.util.Date;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
@@ -55,6 +61,29 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("PostsAdapter", "post clicked");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get post at the position
+                        Post post = posts.get(position);
+                        Fragment fragment;
+                        fragment = new DetailFragment();
+                        Bundle args = new Bundle();
+                        args.putString("tvDescription", post.getDescription());
+                        args.putString("ivImage", post.getImage().getUrl());
+                        args.putString("tvUsername", post.getUser().getUsername());
+                        Date date = new Date();
+                        String relativeTime = (DateUtils.getRelativeTimeSpanString(post.getCreatedAt().getTime(), date.getTime(), 0)).toString();
+                        args.putString("tvTime", relativeTime);
+                        fragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    }
+                }
+            });
         }
 
         public void bind(Post post) {
