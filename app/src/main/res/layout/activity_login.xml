@@ -23,7 +23,7 @@
         android:layout_below="@+id/ivLogo"
         android:background="@drawable/stroke_box"
         android:layout_marginTop="5dp"
-        android:paddingLeft="15dp"/>
+        android:paddingStart="15dp"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -35,7 +35,7 @@
         android:layout_below="@+id/etUsername"
         android:background="@drawable/stroke_box"
         android:layout_marginTop="10dp"
-        android:paddingLeft="15dp"/>
+        android:paddingStart="15dp"/>
 
     <Button
         android:id="@+id/btnLogin"
