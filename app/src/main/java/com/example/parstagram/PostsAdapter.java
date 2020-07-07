@@ -52,15 +52,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvUsername;
+        private ImageView ivProfile;
+        private TextView tvUsernameTop;
         private ImageView ivImage;
+        private TextView tvUsernameBottom;
         private TextView tvDescription;
         private TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvUsername = itemView.findViewById(R.id.tvUsername);
+            ivProfile = itemView.findViewById(R.id.ivProfile);
+            tvUsernameTop = itemView.findViewById(R.id.tvUsernameTop);
             ivImage = itemView.findViewById(R.id.ivImage);
+            tvUsernameBottom = itemView.findViewById(R.id.tvUsernameBottom);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTime = itemView.findViewById(R.id.tvTime);
 
@@ -74,13 +78,20 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                         Post post = posts.get(position);
                         Fragment fragment;
                         fragment = new DetailFragment();
+                        // create bundle of post info to send to detail fragment
                         Bundle args = new Bundle();
                         args.putString("tvDescription", post.getDescription());
                         args.putString("ivImage", post.getImage().getUrl());
                         args.putString("tvUsername", post.getUser().getUsername());
+                        // convert time to relative time ago
                         Date date = new Date();
                         String relativeTime = (DateUtils.getRelativeTimeSpanString(post.getCreatedAt().getTime(), date.getTime(), 0)).toString();
                         args.putString("tvTime", relativeTime);
+                        if (post.getProfilePicture() == null) {
+                            args.putString("ivProfile", null);
+                        } else {
+                            args.putString("ivProfile", post.getProfilePicture().getUrl());
+                        }
                         fragment.setArguments(args);
                         ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
                     }
@@ -91,13 +102,28 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         public void bind(Post post) {
             // bind post data to the view elements
             tvDescription.setText(post.getDescription());
-            tvUsername.setText(post.getUser().getUsername());
+            tvUsernameTop.setText(post.getUser().getUsername());
+            tvUsernameBottom.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
             Date date = new Date();
             tvTime.setText(DateUtils.getRelativeTimeSpanString(post.getCreatedAt().getTime(), date.getTime(), 0));
+            ParseFile profilePicture = post.getProfilePicture();
+            if (profilePicture != null) {
+                Glide.with(context)
+                        .load(profilePicture.getUrl())
+                        .fitCenter()
+                        .circleCrop()
+                        .into(ivProfile);
+            } else {
+                Glide.with(context)
+                        .load(R.drawable.default_profile)
+                        .fitCenter()
+                        .circleCrop()
+                        .into(ivProfile);
+            }
         }
     }
 

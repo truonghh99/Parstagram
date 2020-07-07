@@ -41,7 +41,6 @@
         android:layout_above="@+id/bottomNavigation"
         />
 
-    <!--  TODO: improve the icons  -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"

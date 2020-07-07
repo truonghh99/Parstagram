@@ -1,37 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="8dp"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        tools:src="@tools:sample/avatars"
+        android:layout_margin="8dp"/>
+
     <TextView
-        android:id="@+id/tvUsername"
+        android:id="@+id/tvUsernameTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="andrea"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:layout_alignStart="@+id/ivProfile"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="17dp"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_below="@+id/ivProfile"/>
+
+    <TextView
+        android:id="@+id/tvUsernameBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivImage"
+        tools:text="andrea"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        tools:text="animal crossing is a great game"/>
+        android:layout_marginStart="8dp"
+        tools:text="animal crossing is a great game"
+        android:layout_below="@+id/tvUsernameBottom"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        tools:text="animal crossing is a great game"/>
+        android:layout_marginStart="8dp"
+        tools:text="9 hours ago"
+        android:layout_below="@+id/tvDescription"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"/>
 
-</LinearLayout>
+</RelativeLayout>

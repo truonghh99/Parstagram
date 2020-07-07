@@ -17,8 +17,10 @@ import com.example.parstagram.R;
 
 public class DetailFragment extends Fragment {
 
-    private TextView tvUsername;
+    private ImageView ivProfile;
+    private TextView tvUsernameTop;
     private ImageView ivImage;
+    private TextView tvUsernameBottom;
     private TextView tvDescription;
     private TextView tvTime;
 
@@ -37,15 +39,29 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvUsername = view.findViewById(R.id.tvUsername);
+        tvUsernameTop = view.findViewById(R.id.tvUsernameTop);
+        tvUsernameBottom = view.findViewById(R.id.tvUsernameBottom);
         ivImage = view.findViewById(R.id.ivImage);
         tvDescription = view.findViewById(R.id.tvDescription);
         tvTime = view.findViewById(R.id.tvTime);
+        ivProfile = view.findViewById(R.id.ivProfile);
 
-        tvUsername.setText(getArguments().getString("tvUsername"));
+        tvUsernameTop.setText(getArguments().getString("tvUsername"));
+        tvUsernameBottom.setText(getArguments().getString("tvUsername"));
         tvDescription.setText(getArguments().getString("tvDescription"));
         Glide.with(getContext()).load(getArguments().getString("ivImage")).into(ivImage);
         tvTime.setText(getArguments().getString("tvTime"));
+        if (getArguments().getString("ivProfile") == null) {
+            Glide.with(getContext())
+                    .load(R.drawable.default_profile)
+                    .circleCrop()
+                    .into(ivProfile);
+        } else {
+            Glide.with(getContext())
+                    .load(getArguments().getString("ivProfile"))
+                    .circleCrop()
+                    .into(ivProfile);
+        }
     }
 
 
