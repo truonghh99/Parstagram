@@ -25,6 +25,7 @@
             app:titleTextColor="@android:color/black">
 
             <ImageView
+                android:id="@+id/ivLogo"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/nav_logo_whiteout"
