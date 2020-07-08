@@ -62,6 +62,7 @@
         tools:text="9 hours ago"
         android:layout_below="@+id/tvDescription"
         android:textColor="@android:color/black"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        android:paddingBottom="10dp"/>
 
 </RelativeLayout>
