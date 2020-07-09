@@ -7,6 +7,7 @@ import android.net.ParseException;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,9 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivImage = itemView.findViewById(R.id.ivImage);
+            int width = itemView.getResources().getDisplayMetrics().widthPixels / 3;
+            ivImage.getLayoutParams().height = width;
+            ivImage.getLayoutParams().width = width;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
