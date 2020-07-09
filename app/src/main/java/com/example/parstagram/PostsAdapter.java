@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.parstagram.fragments.DetailFragment;
+import com.example.parstagram.fragments.OtherUserProfileFragment;
 import com.parse.ParseFile;
 
 import java.util.Date;
@@ -76,7 +77,75 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.i("PostsAdapter", "profile picture clicked");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get post at the position
+                        Post post = posts.get(position);
+                        Fragment fragment;
+                        fragment = new OtherUserProfileFragment();
+                        // create bundle of post info to send to detail fragment
+                        Bundle args = new Bundle();
+                        args.putString("tvUsername", post.getUser().getUsername());
+                        if (post.getUser().getParseFile("profilePicture") == null) {
+                            args.putString("ivProfile", null);
+                        } else {
+                            args.putString("ivProfile", post.getUser().getParseFile("profilePicture").getUrl());
+                        }
+                        args.putSerializable("post", post);
+                        fragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    }
+                }
+            });
 
+            tvUsernameTop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("PostsAdapter", "username clicked");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get post at the position
+                        Post post = posts.get(position);
+                        Fragment fragment;
+                        fragment = new OtherUserProfileFragment();
+                        // create bundle of post info to send to detail fragment
+                        Bundle args = new Bundle();
+                        args.putString("tvUsername", post.getUser().getUsername());
+                        if (post.getUser().getParseFile("profilePicture") == null) {
+                            args.putString("ivProfile", null);
+                        } else {
+                            args.putString("ivProfile", post.getUser().getParseFile("profilePicture").getUrl());
+                        }
+                        args.putSerializable("post", post);
+                        fragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    }
+                }
+            });
+
+            tvUsernameBottom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("PostsAdapter", "username clicked");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get post at the position
+                        Post post = posts.get(position);
+                        Fragment fragment;
+                        fragment = new OtherUserProfileFragment();
+                        // create bundle of post info to send to detail fragment
+                        Bundle args = new Bundle();
+                        args.putString("tvUsername", post.getUser().getUsername());
+                        if (post.getUser().getParseFile("profilePicture") == null) {
+                            args.putString("ivProfile", null);
+                        } else {
+                            args.putString("ivProfile", post.getUser().getParseFile("profilePicture").getUrl());
+                        }
+                        args.putSerializable("post", post);
+                        fragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    }
                 }
             });
 

@@ -5,8 +5,12 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
+
 @ParseClassName("Post")
-public class Post extends ParseObject {
+public class Post extends ParseObject implements Serializable {
+
+    public Post() {};
 
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
