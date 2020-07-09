@@ -106,8 +106,10 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                ParseFile parseFile = new ParseFile(photoFile);
+                parseFile.saveInBackground();
                 ParseUser user = ParseUser.getCurrentUser();
-                user.put("profilePicture", photoFile);
+                user.put("profilePicture", parseFile);
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

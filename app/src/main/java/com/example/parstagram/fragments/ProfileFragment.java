@@ -1,7 +1,12 @@
 package com.example.parstagram.fragments;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,13 +40,17 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ProfileFragment";
+    public static final int RESULT_LOAD_IMAGE = 1;
     private RecyclerView rvPosts;
     private ProfilePostsAdapter adapter;
     private List<Post> allPosts;
@@ -47,6 +58,7 @@ public class ProfileFragment extends Fragment {
     private Button btnLogout;
     private ImageView ivProfile;
     private TextView tvUsername;
+    private Button btnSetProfile;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -68,6 +80,7 @@ public class ProfileFragment extends Fragment {
         btnLogout = (Button) view.findViewById(R.id.btnLogout);
         ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
+        btnSetProfile = (Button) view.findViewById(R.id.btnSetProfile);
 
         allPosts = new ArrayList<>();
         adapter = new ProfilePostsAdapter(getContext(), allPosts);
@@ -116,6 +129,14 @@ public class ProfileFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+        btnSetProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +147,53 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && null != data) {
+//            // Let's read picked image data - its URI
+//            Uri pickedImage = data.getData();
+//            // Let's read picked image path using content resolver
+//            String[] filePath = { MediaStore.Images.Media.DATA };
+//            Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
+//            cursor.moveToFirst();
+//            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+//
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//            Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);
+
+            final Uri uri = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            // Compress image to lower quality scale 1 - 100
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] image = stream.toByteArray();
+
+            // Create the ParseFile
+            ParseFile file  = new ParseFile("picture_1.jpeg", image);
+            // Upload the image into Parse Cloud
+            ParseUser user = ParseUser.getCurrentUser();
+            user.put("profilePicture",file);
+
+            user.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+
+                }
+            });
+
+//            // At the end remember to close the cursor or you will end with the RuntimeException!
+//            cursor.close();
+        }
     }
 
     protected void queryPosts() {
