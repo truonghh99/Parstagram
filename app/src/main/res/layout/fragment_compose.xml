@@ -32,6 +32,12 @@
         android:layout_height="wrap_content"
         android:text="Submit" />
 
+    <Button
+        android:id="@+id/btnSetProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set as Profile Picture"/>
+
     <ProgressBar
         android:id="@+id/pbLoading"
         android:visibility="invisible"

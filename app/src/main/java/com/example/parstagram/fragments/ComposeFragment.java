@@ -48,6 +48,7 @@ public class ComposeFragment extends Fragment {
     private Button btnSubmit;
     private File photoFile;
     private String photoFileName = "photo.jpg";
+    private Button btnSetProfile;
 
 
     public ComposeFragment() {
@@ -68,6 +69,7 @@ public class ComposeFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        btnSetProfile = view.findViewById(R.id.btnSetProfile);
         final ProgressBar pb = (ProgressBar) view.findViewById(R.id.pbLoading);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +94,30 @@ public class ComposeFragment extends Fragment {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
+                pb.setVisibility(ProgressBar.INVISIBLE);
+            }
+        });
+
+        btnSetProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pb.setVisibility(ProgressBar.VISIBLE);
+                if (photoFile == null || ivPostImage.getDrawable() == null) {
+                    Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ParseUser user = ParseUser.getCurrentUser();
+                user.put("profilePicture", photoFile);
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Toast.makeText(getContext(), "Successfully set profile picture!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            e.printStackTrace();
+                        }
+                    }
+                });
                 pb.setVisibility(ProgressBar.INVISIBLE);
             }
         });

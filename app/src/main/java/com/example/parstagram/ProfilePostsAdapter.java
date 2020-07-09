@@ -27,12 +27,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapter.ViewHolder> {
 
     private Context context;
     private List<Post> posts;
 
-    public PostsAdapter(Context context, List<Post> posts) {
+    public ProfilePostsAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
     }
@@ -40,7 +40,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_profile_post, parent, false);
         return new ViewHolder(view);
     }
 
@@ -57,28 +57,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView ivProfile;
-        private TextView tvUsernameTop;
         private ImageView ivImage;
-        private TextView tvUsernameBottom;
-        private TextView tvDescription;
-        private TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivProfile = itemView.findViewById(R.id.ivProfile);
-            tvUsernameTop = itemView.findViewById(R.id.tvUsernameTop);
             ivImage = itemView.findViewById(R.id.ivImage);
-            tvUsernameBottom = itemView.findViewById(R.id.tvUsernameBottom);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
-            tvTime = itemView.findViewById(R.id.tvTime);
-
-            ivProfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,28 +95,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         public void bind(Post post) {
             // bind post data to the view elements
-            tvDescription.setText(post.getDescription());
-            tvUsernameTop.setText(post.getUser().getUsername());
-            tvUsernameBottom.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
-            }
-            Date date = new Date();
-            tvTime.setText(DateUtils.getRelativeTimeSpanString(post.getCreatedAt().getTime(), date.getTime(), 0));
-            ParseFile profilePicture = post.getUser().getParseFile("profilePicture");
-            if (profilePicture != null) {
-                Glide.with(context)
-                        .load(profilePicture.getUrl())
-                        .fitCenter()
-                        .circleCrop()
-                        .into(ivProfile);
-            } else {
-                Glide.with(context)
-                        .load(R.drawable.default_profile)
-                        .fitCenter()
-                        .circleCrop()
-                        .into(ivProfile);
             }
         }
     }
@@ -149,4 +113,5 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         posts.addAll(list);
         notifyDataSetChanged();
     }
+
 }

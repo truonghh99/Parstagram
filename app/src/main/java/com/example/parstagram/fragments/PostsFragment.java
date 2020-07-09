@@ -84,9 +84,8 @@ public class PostsFragment extends Fragment {
                 android.R.color.holo_red_light);
 
         // Configure the RecyclerView
-        RecyclerView rvItems = (RecyclerView) view.findViewById(R.id.rvPosts);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-        rvItems.setLayoutManager(linearLayoutManager);
+        rvPosts.setLayoutManager(linearLayoutManager);
         // Retain an instance so that you can call `resetState()` for fresh searches
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
@@ -97,7 +96,7 @@ public class PostsFragment extends Fragment {
             }
         };
         // Adds the scroll listener to RecyclerView
-        rvItems.addOnScrollListener(scrollListener);
+        rvPosts.addOnScrollListener(scrollListener);
     }
 
     public void loadNextData() {

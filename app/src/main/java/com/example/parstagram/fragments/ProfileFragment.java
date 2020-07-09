@@ -9,22 +9,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.ShareActionProvider;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.parstagram.LoginActivity;
 import com.example.parstagram.Post;
 import com.example.parstagram.PostsAdapter;
+import com.example.parstagram.ProfilePostsAdapter;
 import com.example.parstagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -35,10 +41,12 @@ public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ProfileFragment";
     private RecyclerView rvPosts;
-    private PostsAdapter adapter;
+    private ProfilePostsAdapter adapter;
     private List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
     private Button btnLogout;
+    private ImageView ivProfile;
+    private TextView tvUsername;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -58,9 +66,27 @@ public class ProfileFragment extends Fragment {
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
+        tvUsername = (TextView) view.findViewById(R.id.tvUsername);
 
         allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(getContext(), allPosts);
+        adapter = new ProfilePostsAdapter(getContext(), allPosts);
+        tvUsername.setText(ParseUser.getCurrentUser().getUsername());
+
+        ParseFile profilePicture = ParseUser.getCurrentUser().getParseFile("profilePicture");
+        if (profilePicture != null) {
+            Glide.with(getContext())
+                    .load(profilePicture.getUrl())
+                    .fitCenter()
+                    .circleCrop()
+                    .into(ivProfile);
+        } else {
+            Glide.with(getContext())
+                    .load(R.drawable.default_profile)
+                    .fitCenter()
+                    .circleCrop()
+                    .into(ivProfile);
+        }
 
         // Steps to use the recycler view:
         // 0. create layout for one row in the list
@@ -69,7 +95,7 @@ public class ProfileFragment extends Fragment {
         // 3. set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // 4. set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPosts.setLayoutManager(new GridLayoutManager(getContext(), 3));
         queryPosts();
 
         // Setup refresh listener which triggers new data loading
