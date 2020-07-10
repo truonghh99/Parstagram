@@ -5,7 +5,10 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
+import java.sql.Array;
 
 @ParseClassName("Post")
 public class Post extends ParseObject implements Serializable {

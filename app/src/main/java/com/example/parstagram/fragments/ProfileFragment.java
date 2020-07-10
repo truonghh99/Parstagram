@@ -153,18 +153,6 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && null != data) {
-//            // Let's read picked image data - its URI
-//            Uri pickedImage = data.getData();
-//            // Let's read picked image path using content resolver
-//            String[] filePath = { MediaStore.Images.Media.DATA };
-//            Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
-//            cursor.moveToFirst();
-//            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
-//
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//            Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);
-
             final Uri uri = data.getData();
             Bitmap bitmap = null;
             try {
@@ -184,15 +172,11 @@ public class ProfileFragment extends Fragment {
             ParseUser user = ParseUser.getCurrentUser();
             user.put("profilePicture",file);
 
-            user.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-
-                }
-            });
-
-//            // At the end remember to close the cursor or you will end with the RuntimeException!
-//            cursor.close();
+            try {
+                user.save();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
