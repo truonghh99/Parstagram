@@ -7,7 +7,7 @@
         android:icon="@drawable/instagram_home_outline_24"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_compose"
+        android:id="@+id/action_gallery"
         android:icon="@drawable/instagram_new_post_outline_24"
         app:showAsAction="always" />
     <item

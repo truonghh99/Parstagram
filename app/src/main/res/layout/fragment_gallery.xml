@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ComposeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <Button
         android:id="@+id/btnCaptureImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take Picture"
+        android:text="Upload Picture"
         android:layout_marginTop="?attr/actionBarSize"
         android:backgroundTint="@android:color/black"
         android:textColor="@android:color/white"
