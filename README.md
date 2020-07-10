@@ -2,7 +2,7 @@
 
 **InstagramClone** is a photo sharing app using Parse as its backend.
 
-Time spent: **5** hours spent in total
+Time spent: **22** hours spent in total
 
 ## User Stories
 
@@ -30,7 +30,7 @@ The following **stretch** features are implemented:
   - [x] Display the profile photo with each post
   - [x] Tapping on a post's username or profile photo goes to that user's profile page
   - [x] User Profile shows posts in a grid view
-- [ ] User can comment on a post and see all comments for each post in the post details screen.
+- [x] User can comment on a post and see all comments for each post in the post details screen.
 - [x] User can like a post and see number of likes for each post in the post details screen.
 
 The following **additional** features are implemented:
@@ -39,8 +39,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. I wish I had more time to implement a Direct Message feature using Parse. I could link my direct message icon to a list of message exchanges, which all link to direct message rooms.
+2. It would have been nice to implement a gesture recognizer, like double tapping to like a post.
 
 ## Video Walkthrough
 
@@ -48,7 +48,7 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+GIF created with [Kap](https://getkap.co/).
 
 ## Credits
 
