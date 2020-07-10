@@ -20,9 +20,11 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.parstagram.fragments.CommentDialogFragment;
 import com.example.parstagram.fragments.DetailFragment;
 import com.example.parstagram.fragments.OtherUserProfileFragment;
 import com.parse.FindCallback;
@@ -305,22 +307,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Comment comment = new Comment();
-                    comment.setUser(ParseUser.getCurrentUser());
-                    comment.setPost(posts.get(getAdapterPosition()));
-                    comment.setBody("test comment");
-                    comment.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e != null) {
-                            Log.e(TAG, "Error while saving comment", e);
-                            }
-                            Log.i(TAG, "Comment save was successful!");
-                        }
-                    });
+                    Post post = posts.get(getAdapterPosition());
+                    showCommentDialog(post);
                     int numQueryComments = 0;
                     try {
-                        numQueryComments = queryComments(posts.get(getAdapterPosition()));
+                        numQueryComments = queryComments(posts.get(getAdapterPosition())) + 1;
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -434,5 +425,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         query.whereEqualTo(Like.KEY_POST, post);
         List<Comment> comments = query.find();
         return comments.size();
+    }
+
+    private void showCommentDialog(Post post) {
+        FragmentManager fm = ((MainActivity)context).getSupportFragmentManager();
+        CommentDialogFragment commentDialogFragment = CommentDialogFragment.newInstance(post);
+        commentDialogFragment.show(fm, "fragment_comment_dialog");
     }
 }

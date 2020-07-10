@@ -1,5 +1,6 @@
 package com.example.parstagram.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +36,7 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements CommentDialogFragment.CommentDialogListener{
 
     public static final String TAG = "DetailFragment";
     private ImageView ivProfile;
@@ -205,12 +207,22 @@ public class DetailFragment extends Fragment {
                 }
             }
         });
+
+        ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Post post = (Post) getArguments().getSerializable("post");
+                showCommentDialog(post);
+            }
+        });
     }
 
     private void queryComments() {
         // Specify which class to query
         ParseQuery<Comment> query = ParseQuery.getQuery(Comment.class);
         query.include(Comment.KEY_POST);
+        query.include(Comment.KEY_USER);
+        query.whereEqualTo(Comment.KEY_POST, (Post) getArguments().getSerializable("post"));
         query.addDescendingOrder(Comment.KEY_CREATED);
         query.findInBackground(new FindCallback<Comment>() {
             @Override
@@ -220,11 +232,7 @@ public class DetailFragment extends Fragment {
                     return;
                 }
                 for (Comment comment : comments) {
-                    try {
-                        Log.i(TAG, "Comment: " + comment.getBody() + ", username: " + comment.fetchIfNeeded().getString("userId"));
-                    } catch (ParseException ex) {
-                        ex.printStackTrace();
-                    }
+                    Log.i(TAG, "Comment: " + comment.getBody() + ", username: " + comment.getUser().getUsername());
                 }
                 allComments.addAll(comments);
                 adapter.notifyDataSetChanged();
@@ -255,4 +263,16 @@ public class DetailFragment extends Fragment {
         return true;
     }
 
+    private void showCommentDialog(Post post) {
+        FragmentManager fm = getFragmentManager();
+        CommentDialogFragment commentDialogFragment = CommentDialogFragment.newInstance(post);
+        commentDialogFragment.show(fm, "fragment_comment_dialog");
+    }
+
+    @Override
+    public void onFinishCommentDialog(Comment comment) {
+        allComments.add(allComments.size() - 1, comment);
+        adapter.notifyItemInserted(allComments.size() - 1);
+        rvComments.smoothScrollToPosition(allComments.size() - 1);
+    }
 }

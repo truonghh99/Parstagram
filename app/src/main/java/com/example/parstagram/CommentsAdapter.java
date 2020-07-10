@@ -58,7 +58,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
 
         public void bind(Comment comment) throws ParseException {
-            tvUsername.setText(comment.fetchIfNeeded().getString("userId"));
+            tvUsername.setText(comment.getUser().getUsername());
             tvBody.setText(comment.getBody());
         }
     }

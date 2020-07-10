@@ -103,25 +103,6 @@
         android:layout_alignStart="@id/tvUsernameBottom"
         android:layout_marginTop="5dp" />
 
-    <EditText
-        android:id="@+id/etComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvComments"
-        android:hint="Add a comment..."
-        android:textSize="14sp"
-        android:layout_marginEnd="90dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Post"
-        android:layout_alignTop="@+id/etComment"
-        android:layout_toEndOf="@id/etComment"
-        android:layout_marginStart="-90dp"
-        android:backgroundTint="@android:color/black"
-        android:textColor="@android:color/white" />
-
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="match_parent"
@@ -129,7 +110,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         tools:text="9 hours ago"
-        android:layout_below="@+id/etComment"
+        android:layout_below="@+id/tvComments"
         android:textColor="@android:color/black"
         android:textSize="12sp"
         android:paddingBottom="10dp"/>
