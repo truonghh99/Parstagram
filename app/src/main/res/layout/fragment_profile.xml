@@ -33,7 +33,11 @@
         android:layout_marginEnd="15dp"
         android:text="Change profile picture"
         android:layout_above="@id/btnLogout"
-        android:layout_toEndOf="@id/ivProfile"/>
+        android:layout_toEndOf="@id/ivProfile"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#458eff"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btnLogout"
@@ -43,7 +47,11 @@
         android:layout_marginEnd="15dp"
         android:text="Log out"
         android:layout_alignBottom="@id/tvUsername"
-        android:layout_toEndOf="@id/ivProfile"/>
+        android:layout_toEndOf="@id/ivProfile"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:textAllCaps="false"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

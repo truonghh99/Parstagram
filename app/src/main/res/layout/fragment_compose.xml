@@ -12,14 +12,16 @@
         android:layout_height="wrap_content"
         android:text="Take Picture"
         android:layout_marginTop="?attr/actionBarSize"
-        android:backgroundTint="@android:color/black"
+        android:textSize="16sp"
         android:textColor="@android:color/white"
+        android:backgroundTint="#458eff"
+        android:textAllCaps="false"
         android:layout_centerHorizontal="true"/>
 
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         tools:srcCompat="@tools:sample/avatars"
         android:layout_below="@id/btnCaptureImage"/>
 
@@ -31,25 +33,35 @@
         android:hint="Description..."
         android:layout_below="@id/ivPostImage"/>
 
-    <Button
-        android:id="@+id/btnSubmit"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
         android:layout_below="@id/etDescription"
-        android:backgroundTint="@android:color/black"
-        android:textColor="@android:color/white"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true">
 
-    <Button
-        android:id="@+id/btnSetProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set as Profile Picture"
-        android:layout_below="@id/btnSubmit"
-        android:backgroundTint="@android:color/black"
-        android:textColor="@android:color/white"
-        android:layout_centerHorizontal="true"/>
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#458eff"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnSetProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set as Profile Picture"
+            android:layout_toEndOf="@id/btnSubmit"
+            android:layout_alignBottom="@id/btnSubmit"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#458eff"
+            android:textAllCaps="false" />
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/pbLoading"
