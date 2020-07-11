@@ -8,11 +8,11 @@
         android:id="@+id/btnCaptureImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload Picture"
+        android:text="@string/upload_picture"
         android:layout_marginTop="?attr/actionBarSize"
         android:textSize="16sp"
         android:textColor="@android:color/white"
-        android:backgroundTint="#458eff"
+        android:backgroundTint="@color/blue"
         android:textAllCaps="false"
         android:layout_centerHorizontal="true"/>
 
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Description..."
+        android:hint="@string/description"
         android:layout_below="@id/ivPostImage"/>
 
     <RelativeLayout
@@ -42,22 +42,22 @@
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:text="@string/submit"
             android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:backgroundTint="#458eff"
+            android:backgroundTint="@color/blue"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnSetProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set as Profile Picture"
+            android:text="@string/set_as_profile_picture"
             android:layout_toEndOf="@id/btnSubmit"
             android:layout_alignBottom="@id/btnSubmit"
             android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:backgroundTint="#458eff"
+            android:backgroundTint="@color/blue"
             android:textAllCaps="false" />
 
     </RelativeLayout>

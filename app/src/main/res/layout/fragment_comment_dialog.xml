@@ -9,7 +9,7 @@
         android:id="@+id/etComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Add a comment..."
+        android:hint="@string/add_a_comment"
         android:textSize="14sp"
         android:layout_marginEnd="80dp"/>
 
@@ -17,7 +17,7 @@
         android:id="@+id/btnComment"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:text="Post"
+        android:text="@string/post"
         android:layout_alignTop="@+id/etComment"
         android:layout_toEndOf="@id/etComment"
         android:layout_marginStart="-80dp"
