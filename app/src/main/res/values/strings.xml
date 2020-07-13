@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Parstagram</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_profile_picture">Change profile picture</string>
+    <string name="log_out">Log out</string>
+    <string name="add_a_comment">Add a comment...</string>
+    <string name="post">Post</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="description">Description...</string>
+    <string name="submit">Submit</string>
+    <string name="set_as_profile_picture">Set as Profile Picture</string>
+    <string name="upload_picture">Upload Picture</string>
+    <string name="description">Description...</string>
+    <string name="submit">Submit</string>
+    <string name="set_as_profile_picture">Set as Profile Picture</string>
 </resources>
